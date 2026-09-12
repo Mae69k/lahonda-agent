@@ -175,7 +175,4 @@ class Security(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    cog = Security(bot)
-    bot.tree.add_command(cog.security_group)
-    bot.tree.add_command(cog.panic_group)
-    await bot.add_cog(cog)
+    await bot.add_cog(Security(bot))

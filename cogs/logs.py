@@ -127,6 +127,4 @@ class Logs(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    cog = Logs(bot)
-    bot.tree.add_command(cog.group)
-    await bot.add_cog(cog)
+    await bot.add_cog(Logs(bot))

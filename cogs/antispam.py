@@ -114,6 +114,4 @@ class AntiSpam(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    cog = AntiSpam(bot)
-    bot.tree.add_command(cog.group)
-    await bot.add_cog(cog)
+    await bot.add_cog(AntiSpam(bot))

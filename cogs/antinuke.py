@@ -143,6 +143,4 @@ class AntiNuke(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    cog = AntiNuke(bot)
-    bot.tree.add_command(cog.group)
-    await bot.add_cog(cog)
+    await bot.add_cog(AntiNuke(bot))

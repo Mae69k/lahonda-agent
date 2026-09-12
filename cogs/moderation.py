@@ -308,6 +308,4 @@ class Moderation(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    cog = Moderation(bot)
-    bot.tree.add_command(cog.case_group)
-    await bot.add_cog(cog)
+    await bot.add_cog(Moderation(bot))

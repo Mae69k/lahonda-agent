@@ -105,6 +105,4 @@ class Config(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    cog = Config(bot)
-    bot.tree.add_command(cog.permission_group)
-    await bot.add_cog(cog)
+    await bot.add_cog(Config(bot))
