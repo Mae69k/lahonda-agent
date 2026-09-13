@@ -96,13 +96,5 @@ class Config(commands.Cog):
             f"✅ La commande `{commande}` nécessite maintenant le niveau **{niveau.name}**"
         )
 
-    async def cog_app_command_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
-        if isinstance(error, app_commands.CheckFailure):
-            await interaction.response.send_message(str(error), ephemeral=True)
-        else:
-            await interaction.response.send_message(f"❌ Erreur : {error}", ephemeral=True)
-            raise error
-
-
 async def setup(bot: commands.Bot):
     await bot.add_cog(Config(bot))

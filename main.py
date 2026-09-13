@@ -18,6 +18,29 @@ intents.message_content = True  # pour lire le contenu des messages (anti-spam, 
 bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 
+async def on_tree_error(interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
+    """Gestionnaire d'erreur global pour toutes les commandes slash, quel que soit le cog."""
+    if isinstance(error, discord.app_commands.CheckFailure):
+        message = str(error) or "🚫 Tu n'as pas la permission d'utiliser cette commande."
+    else:
+        print(f"⚠️ Erreur dans une commande : {error!r}")
+        message = f"❌ Une erreur est survenue : {error}"
+
+    try:
+        if interaction.response.is_done():
+            await interaction.followup.send(message, ephemeral=True)
+        else:
+            await interaction.response.send_message(message, ephemeral=True)
+    except discord.NotFound:
+        # L'interaction a expiré (plus de 3s sans réponse) : impossible de répondre, on abandonne proprement
+        print("⚠️ Interaction expirée avant que l'erreur ait pu être affichée à l'utilisateur.")
+    except discord.HTTPException as e:
+        print(f"⚠️ Impossible d'envoyer le message d'erreur : {e}")
+
+
+bot.tree.on_error = on_tree_error
+
+
 @bot.event
 async def on_ready():
     print(f"✅ Connecté en tant que {bot.user} (ID: {bot.user.id})")

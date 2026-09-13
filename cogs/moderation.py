@@ -297,15 +297,5 @@ class Moderation(commands.Cog):
         await db.commit()
         await interaction.response.send_message(f"✅ Raison du dossier #{numero} mise à jour.")
 
-    async def cog_app_command_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
-        if isinstance(error, app_commands.CheckFailure):
-            if not interaction.response.is_done():
-                await interaction.response.send_message(str(error), ephemeral=True)
-        else:
-            if not interaction.response.is_done():
-                await interaction.response.send_message(f"❌ Erreur : {error}", ephemeral=True)
-            raise error
-
-
 async def setup(bot: commands.Bot):
     await bot.add_cog(Moderation(bot))
